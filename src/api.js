@@ -26,9 +26,13 @@ async function pedir(ruta, { metodo = 'GET', cuerpo, token } = {}) {
   } catch {
     throw new ErrorApi('No hay conexión con el servidor. Revisa tu internet e inténtalo de nuevo.', 0, 'sin_red')
   }
-  const datos = await respuesta.json().catch(() => ({}))
+  const datos = await respuesta.json().catch(() => null)
+  if (datos === null && respuesta.ok) {
+    // 200 sin JSON: casi siempre la web esta hablando con su propio dominio (falta VITE_API_URL al compilar).
+    throw new ErrorApi('El servidor no respondió como se esperaba. Avisa a RH.', respuesta.status, 'respuesta_invalida')
+  }
   if (!respuesta.ok) {
-    throw new ErrorApi(datos.mensaje || `Error ${respuesta.status}`, respuesta.status, datos.error, datos.detalle)
+    throw new ErrorApi(datos?.mensaje || `Error ${respuesta.status}`, respuesta.status, datos?.error, datos?.detalle)
   }
   return datos
 }
