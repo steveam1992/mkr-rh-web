@@ -1,0 +1,25 @@
+{
+  "name": "mkr-rh-web",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Web de MKR RH: marcaje de entrada y salida por empresa y panel de asistencia en vivo",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.35",
+    "vue-router": "^5.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.7",
+    "vite": "^7.3.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
